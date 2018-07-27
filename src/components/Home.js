@@ -4,13 +4,68 @@ import {Link} from 'react-router-dom';
 import BookShelf from './BookShelf';
 
 class Home extends React.Component {
+
+  state = {
+    activeCategory: 'all',
+    isHidden: true,
+    targetScroll: 0,
+    error: null
+  }
+
+  getCategories = () => {
+    const categories = [];
+    if(this.props.data){
+      for (const key of new Set(this.props.data).keys()) {
+        categories.push(key.shelf);
+      }
+      if(categories) {
+        return Array.from(new Set(categories));
+      }
+    }
+    return categories;
+  }
+
+  booksCount = (shelf) => {
+    let data = this.props.data;
+    let counter = 0;
+    if(shelf === 'all') return data.length;
+    for (const key of data) {
+      if (key.shelf.indexOf(shelf) > -1) counter++;
+    }
+    return counter;
+  }
+
+  changeCategory = (category) => {
+    this.setState({activeCategory:category});
+  }
+
+  handleClickFilter = (e) => {
+    e.preventDefault();
+    this.setState({isHidden:!this.state.isHidden})
+  }
+
+  handleScroll = (e) => {
+    let initVal = document.body.screenTop || document.documentElement.scrollTop;
+    this.setState({targetScroll:initVal});
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
   render() {
-    const {targetScroll, isHidden, isLoading, activeCategory, data, getCategories, counter, handleClickFilter, handleScroll, changeCategory, updateBookShelf} = this.props;
+    const {data, updateBookShelf, isLoading} = this.props;
+    const {isHidden, activeCategory, targetScroll} = this.state;
+
     return (
       <div className="list-books">
-        <div className="list-books-title" onScroll={handleScroll}>
+        <div className="list-books-title" onScroll={this.handleScroll}>
           <div className='open-filter'>
-          <button onClick={handleClickFilter}>Filter by book shelf</button>
+          <button onClick={this.handleClickFilter}>Filter by book shelf</button>
         </div>
         <div aria-label='My Reads Logo'
             className='brand-logo'
@@ -27,11 +82,11 @@ class Home extends React.Component {
         </div>
       </div>
       <CategoryControl
-        counter={counter}
-        onClickFilter={handleClickFilter}
+        counter={this.booksCount}
+        onClickFilter={this.handleClickFilter}
         show={isHidden}
-        getCategories={getCategories}
-        onChangeCategory={changeCategory}
+        getCategories={this.getCategories}
+        onChangeCategory={this.changeCategory}
       />
 
       {
@@ -49,10 +104,10 @@ class Home extends React.Component {
       <div className="list-books-content" id='all'>
         <div>
           <BookShelf
-            getCategories={getCategories}
+            getCategories={this.getCategories}
             category={activeCategory}
             data={data}
-            onUpdate={updateBookShelf}
+            updateBookShelf={updateBookShelf}
           />
         </div>
 

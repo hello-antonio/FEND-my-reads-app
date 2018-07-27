@@ -10,11 +10,8 @@ class BooksApp extends React.Component {
   state = {
     books: [],
     searchData: [],
-    activeCategory: 'all',
-    isHidden: true,
-    targetScroll: 0,
-    isLoading: false,
-    error: null
+    error: null,
+    isLoading: false
   }
 
   // Books data helpers
@@ -24,6 +21,7 @@ class BooksApp extends React.Component {
     .catch(err => this.setState({error:err, isLoading: false}));
   }
 
+  // Search helpers
   searchBooks = (query) => {
     if(query && query !== '') {
       BooksAPI.search(query, 20)
@@ -49,53 +47,16 @@ class BooksApp extends React.Component {
     return [];
   }
 
-  // Move book
+  // Books shelf helpers
+  // keep here
   updateBookShelf = (book, shelf) => {
     BooksAPI.update(book, shelf);
     this.getBooks();
   }
 
-  changeCategory = (category) => {
-    this.setState({activeCategory:category});
-  }
-
-  getCategories = () => {
-    const categories = [];
-    for (const key of new Set(this.state.books).keys()) {
-      categories.push(key.shelf);
-    }
-
-    return Array.from(new Set(categories));
-  }
-
-  booksCount = (shelf) => {
-    let counter = 0;
-    if(shelf === 'all') return this.state.books.length;
-    for (const key of this.state.books) {
-      if (key.shelf.indexOf(shelf) > -1) counter++;
-    }
-    return counter;
-  }
-
-  // Handle events
-  handleClickFilter = (e) => {
-    e.preventDefault();
-    this.setState({isHidden:!this.state.isHidden})
-  }
-
-  handleScroll = (e) => {
-    let initVal = document.body.screenTop || document.documentElement.scrollTop;
-    this.setState({targetScroll:initVal});
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-  }
-
   componentDidMount() {
     this.setState({isLoading:true});
     this.getBooks();
-    window.addEventListener('scroll', this.handleScroll);
   }
 
 
@@ -105,23 +66,16 @@ class BooksApp extends React.Component {
         <Route exact path='/' render={()=>(
           <Home
           data={this.state.books}
-          isHidden={this.state.isHidden}
-          isLoading={this.state.isLoading}
-          activeCategory={this.state.activeCategory}
-          targetScroll={this.state.targetScroll}
-          handleClickFilter={this.handleClickFilter}
-          handleScroll={this.handleScroll}
-          getCategories={this.getCategories}
-          changeCategory={this.changeCategory}
-          counter={this.booksCount}
           updateBookShelf={this.updateBookShelf}
+          getBooks={this.getBooks}
+          isLoading={this.state.isLoading}
           />
         )}/>
         <Route path='/search' render={()=>(
           <Search
           data={this.state.searchData}
           onSearchBooks={this.searchBooks}
-          onUpdate={this.updateBookShelf}
+          updateBookShelf={this.updateBookShelf}
           />
         )}/>
         </div>

@@ -5,14 +5,14 @@ class BookItem extends React.Component {
 
   static propTypes = {
     data: PropTypes.object.isRequired,
-    onUpdate: PropTypes.func.isRequired
+    updateBookShelf: PropTypes.func.isRequired
   }
 
   handleShelfChange(e, book) {
     e.preventDefault();
     const value = e.target.value;
     if(book.shelf === undefined || book.shelf !== value) {
-      return this.props.onUpdate(book, value);
+      return this.props.updateBookShelf(book, value);
     }
   }
 

@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 class BookShelf extends React.Component {
   static propTypes = {
     data: PropTypes.array.isRequired,
-    onUpdate: PropTypes.func.isRequired,
-    categories: PropTypes.any,
+    updateBookShelf: PropTypes.func.isRequired,
+    getCategories: PropTypes.func.isRequired,
     category: PropTypes.string.isRequired
   }
 
@@ -49,7 +49,7 @@ class BookShelf extends React.Component {
               <h2 className="bookshelf-title">{shelf.replace(/([a-z])([A-Z])/g, "$1 $2")}</h2>
               <div className="bookshelf-books">
                 <BooksList
-                  onUpdate={this.props.onUpdate}
+                  updateBookShelf={this.props.updateBookShelf}
                   books={this.groupByShelf(this.props.data, shelf)}
                   />
               </div>

@@ -21,7 +21,7 @@ class CategoryControl extends React.Component {
 
   render(){
 
-    const categories = ['all',...this.props.getCategories()];
+    const categories = ['all',...this.props.getCategories];
 
     return (
       <div className='open-categories-list'>

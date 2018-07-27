@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 class BooksList extends React.Component {
   static propTypes = {
     books: PropTypes.array.isRequired,
-    onUpdate: PropTypes.func.isRequired
+    updateBookShelf: PropTypes.func.isRequired
   }
 
   render(){
@@ -15,7 +15,7 @@ class BooksList extends React.Component {
         {
           this.props.books.map((book)=>(
             <BookItem
-              onUpdate={this.props.onUpdate}
+              updateBookShelf={this.props.updateBookShelf}
               data={book}
               key={`item-${book.id}`}/>
           ))

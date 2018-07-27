@@ -8,7 +8,7 @@ class Search extends React.Component {
   static propTypes = {
     onSearchBooks: PropTypes.func.isRequired,
     data: PropTypes.array.isRequired,
-    onUpdate: PropTypes.func.isRequired
+    updateBookShelf: PropTypes.func.isRequired
   }
 
   state = {
@@ -27,8 +27,11 @@ class Search extends React.Component {
           <div className="search-books-bar">
             <Link className="close-search" to='/'>Close</Link>
             <div className="search-books-input-wrapper">
+              <div className='search-box'>
+                <button className='search-button' onClick={this.handleSearch} />
+              </div>
               <DebounceInput
-                 minLength={2}
+                 minLength={3}
                  debounceTimeout={500}
                  placeholder="Search by title or author"
                  onChange={this.handleSearch}
@@ -41,7 +44,7 @@ class Search extends React.Component {
           { this.props.data.length > 0 && this.state.search.length > 0
               ? (
                 <BooksList
-                onUpdate={this.props.onUpdate}
+                updateBookShelf={this.props.updateBookShelf}
                 books={this.props.data}/>
               )
               : (<p
