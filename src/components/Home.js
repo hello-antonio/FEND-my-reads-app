@@ -14,22 +14,16 @@ class Home extends React.Component {
 
   getCategories = () => {
     const categories = [];
-    if(this.props.data){
       for (const key of new Set(this.props.data).keys()) {
         categories.push(key.shelf);
       }
-      if(categories) {
-        return Array.from(new Set(categories));
-      }
-    }
-    return categories;
+      return Array.from(new Set(categories));
   }
 
   booksCount = (shelf) => {
-    let data = this.props.data;
     let counter = 0;
-    if(shelf === 'all') return data.length;
-    for (const key of data) {
+    if(shelf === 'all') return this.props.data.length;
+    for (const key of this.props.data) {
       if (key.shelf.indexOf(shelf) > -1) counter++;
     }
     return counter;

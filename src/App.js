@@ -5,6 +5,7 @@ import './App.css';
 import Search from './components/Search';
 import Home from './components/Home';
 
+
 class BooksApp extends React.Component {
 
   state = {
@@ -24,10 +25,11 @@ class BooksApp extends React.Component {
   // Search helpers
   searchBooks = (query) => {
     if(query && query !== '') {
-      BooksAPI.search(query, 20)
+      return BooksAPI.search(query)
       .then(data => this.setState({searchData: this.filterSearchData(data)}))
       .catch(err => console.error(err, 'search'));
     }
+    return null;
   }
 
   filterSearchData = (searchData)=>{
@@ -44,7 +46,7 @@ class BooksApp extends React.Component {
       }
       return searchData;
     }
-    return [];
+    return null;
   }
 
   // Books shelf helpers

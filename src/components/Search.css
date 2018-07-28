@@ -1,0 +1,88 @@
+/* search page */
+
+.search-books-bar {
+  position: fixed;
+  width: 100%;
+  height: 48px;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  display: flex;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.19);
+}
+
+.search-books-input-wrapper {
+  display: flex;
+  flex: 1;
+  width:calc(100% - 73px);
+}
+
+.search-books-bar .search-input {
+  text-align: center;
+  width: calc(100% - 48px);
+  font-size: 1em;
+  border: none;
+  outline: none;
+}
+.search-box {
+  width: 48px;
+  height: 48px;
+  order: 2;
+}
+
+.search-button {
+  position: absolute;
+  background-image: url('../icons/search.svg');
+  background-size: 24px;
+  min-width: 48px;
+  max-width: 48px;
+  height: 48px;
+  right: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: transparent;
+  background-color: rgb(62, 35, 233);
+  cursor: pointer;
+  font-size: 0;
+}
+.close-box {
+  width: 48px;
+}
+.close-search {
+  position: absolute;
+  left: 0;
+  width: 48px;
+  height: 48px;
+  background:#f5f5f5;
+  background-image: url('../icons/arrow-back.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 28px;
+  font-size: 0;
+  cursor: pointer;
+}
+
+.search-books-results {
+  padding: 80px 10px 20px;
+  width: 100%;
+  max-width: 1200px;
+  min-height: 80vh;
+  margin: auto;
+}
+
+@media screen and (min-width:600px) {
+  .close-box {
+    width: 73px;
+  }
+  .close-search {
+    left: 25px;
+  }
+  .search-box {
+    position: absolute;
+    right: 25px;
+  }
+  .search-books-bar .search-input {
+    width: calc(100% - 73px);
+    font-size: 1.25em;
+  }
+}
