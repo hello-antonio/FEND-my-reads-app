@@ -1,6 +1,7 @@
 # FEND: MyReads Project
 
 #### About
+![My Read Screenshot IiPad Pro](myreads.png)
 
 My reads app is a PWA site build with **reactjs**. The site has a user library of books. There are three lists/shelves of books: currently reading, want to read, and read. The user can move books to other lists in the app. Also user can add books to the library by searching books from an API (Udacity books API). No account needed to use app.
 

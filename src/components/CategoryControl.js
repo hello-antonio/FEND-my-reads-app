@@ -35,8 +35,7 @@ class CategoryControl extends React.Component {
                 className={`list-books-category-item ${category === this.state.active ? 'active' : 'current'}`}
                 onClick={()=>this.handleClick(category)}
                 href={`/#${category}`}>
-                {category.replace(/([a-z])([A-Z])/g, "$1 $2")}
-                ({this.props.counter(category)})</a>
+                {category.replace(/([a-z])([A-Z])/g, "$1 $2")} ({this.props.counter(category)})</a>
             </li>))}
         </ul>
       </div>

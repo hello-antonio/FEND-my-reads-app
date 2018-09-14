@@ -102,6 +102,7 @@ class Home extends React.Component {
             category={activeCategory}
             data={data}
             updateBookShelf={updateBookShelf}
+            counter = {this.booksCount}
           />
         </div>
 

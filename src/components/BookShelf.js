@@ -45,8 +45,12 @@ class BookShelf extends React.Component {
 
           filterByShelf.map(shelf => (
 
-            <div className="bookshelf" key={shelf} id={shelf}>
-              <h2 className="bookshelf-title">{shelf.replace(/([a-z])([A-Z])/g, "$1 $2")}</h2>
+            <div className="bookshelf" key={shelf} id={shelf}
+              style={{
+                backgroundColor: `${shelf === 'currentlyReading' ? '#fafafa': shelf === 'read' ? '#eee' : '#f5f5f5'}`
+              }}
+            >
+              <h2 className="bookshelf-title">{shelf.replace(/([a-z])([A-Z])/g, "$1 $2")} <span>{this.props.counter(shelf)}</span> </h2>
               <div className="bookshelf-books">
                 <BooksList
                   updateBookShelf={this.props.updateBookShelf}

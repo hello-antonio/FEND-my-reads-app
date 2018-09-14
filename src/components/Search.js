@@ -32,7 +32,9 @@ class Search extends React.Component {
     this.setState({search:event.target.value});
     this.matchTerm(event.target.value);
   }
-
+  handleClickClose = (event)=>{
+    this.setState({search:''});
+  }
   handleSubmit = (event)=>{
     this.props.onSearchBooks(this.state.search.toLowerCase().trim());
     event.preventDefault();
@@ -66,7 +68,7 @@ class Search extends React.Component {
     }
 
     const Results = ()=>{
-      if(typeof data === 'object' && data !== null && data.length > 0) {
+      if(typeof data === 'object' && data !== null && data.length > 0 && this.state.search.length) {
         return <BooksList updateBookShelf={updateBookShelf}
         books={data}/>
       } else if(data === null) {
@@ -87,7 +89,7 @@ class Search extends React.Component {
       <div className="search-books" role='main'>
           <div className="search-books-bar">
             <div className='close-box'>
-              <Link className="close-search" to='/'>Close</Link>
+              <Link className="close-search" onClick={this.handleClickClose} to='/'>Close</Link>
             </div>
             <form className="search-books-input-wrapper" id='search-form' onSubmit={this.handleSubmit}>
 
@@ -115,7 +117,7 @@ class Search extends React.Component {
 
           <div className="search-books-results">
           <Results />
-         
+
           </div>
         </div>
     )
